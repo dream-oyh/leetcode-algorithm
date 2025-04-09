@@ -3,6 +3,8 @@ class ListNode(object):
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
+
 class Solution(object):
     def swapPairs(self, head):
         """
@@ -10,33 +12,17 @@ class Solution(object):
         :rtype: Optional[ListNode]
         """
         first = self.list2linkedlist(head)
-        dummy_node = ListNode(0,first)
-        current = dummy_node.next
-        if current is None:
-            return
-        elif current.next is not None:
-            next = current.next
-            dummy_node, next, current = self.swap(dummy_node, current, next)
-            while True:
-                
-                if current.next is not None:
-                    prev = current
-                    current = current.next
-                    if current.next is not None:
-                        next = current.next
-                        prev, next, current = self.swap(prev, current, next)
-                    else:
-                        break
-                else:
-                    break
-        return dummy_node.next
+        if head is None or head.next is None:
+            return head
 
-    def swap(self, prev, current, next):
+        pre = head
+        current = head.next
+        next = head.next.next
 
-        current.next = next.next
-        next.next = current
-        prev.next = next
-        return prev, next, current
+        current.next = pre
+        pre.next = self.swapPairs(next)
+
+        return current
 
     def list2linkedlist(self, input_list) -> ListNode:
         dummy_node = ListNode()
@@ -45,6 +31,7 @@ class Solution(object):
             head.next = ListNode(val=ele)
             head = head.next
         return dummy_node.next
-    
+
+
 so = Solution()
-so.swapPairs([1,2,3])
+so.swapPairs([1, 2, 3])
