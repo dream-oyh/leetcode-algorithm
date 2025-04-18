@@ -13,7 +13,7 @@ def main():
         except:
             break
         print(prefix_sum[int(nums[1]) + 1] - prefix_sum[int(nums[0])])
-    
+
 
 if __name__ == '__main__':
     main()
